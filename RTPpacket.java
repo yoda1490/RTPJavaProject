@@ -47,13 +47,20 @@ public class RTPpacket{
     //--------------------------
     header = new byte[HEADER_SIZE];
 
-    //.............
-    //TO COMPLETE
-    //.............
     //fill the header array of byte with RTP header fields
 
-    //header[0] = ...
-    // .....
+    //payload type
+    header[1] = 26;
+    
+    //sequence num
+    header[2] = ((byte)(sequenceNumber / 256));
+    header[3] = ((byte)(sequenceNumber % 256));
+    
+    //timestamp
+    header[4] = ((byte)(timeStamp / 16777216));
+    header[5] = ((byte)(timeStamp / 65536));
+    header[6] = ((byte)(timeStamp / 256));
+    header[7] = ((byte)(timeStamp % 256));
  
 
     //fill the payload bitstream:
@@ -61,10 +68,11 @@ public class RTPpacket{
     payload_size = data_length;
     payload = new byte[data_length];
 
-    //fill payload array of byte from data (given in parameter of the constructor)
-    //......
+    for(int i=0; i<payload.length; i++) {
+      payload[i] = data[i];
+    }
 
-    // ! Do not forget to uncomment method printheader() below !
+    
 
   }
     
@@ -170,15 +178,15 @@ public class RTPpacket{
   //--------------------------
   public void printheader()
   {
-    //TO DO: uncomment
-    /*
+    
+    
     for (int i=0; i < (HEADER_SIZE-4); i++)
-      {
-	for (int j = 7; j>=0 ; j--)
-	  if (((1<= 0)
-      return(nb);
-    else
-      return(256+nb);
-  }
+    {
+    	for (int j = 7; j>=0 ; j--)
+    	  if (((1<= 0)
+          return(nb);
+        else
+          return(256+nb);
+    }
 
 }
