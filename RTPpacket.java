@@ -53,14 +53,14 @@ public class RTPpacket{
     header[1] = 26;
     
     //sequence num
-    header[2] = ((byte)(sequenceNumber / 256));
-    header[3] = ((byte)(sequenceNumber % 256));
+    header[2] = ((byte)(SequenceNumber / 256));
+    header[3] = ((byte)(SequenceNumber % 256));
     
     //timestamp
-    header[4] = ((byte)(timeStamp / 16777216));
-    header[5] = ((byte)(timeStamp / 65536));
-    header[6] = ((byte)(timeStamp / 256));
-    header[7] = ((byte)(timeStamp % 256));
+    header[4] = ((byte)(TimeStamp / 16777216));
+    header[5] = ((byte)(TimeStamp / 65536));
+    header[6] = ((byte)(TimeStamp / 256));
+    header[7] = ((byte)(TimeStamp % 256));
  
 
     //fill the payload bitstream:
@@ -105,8 +105,8 @@ public class RTPpacket{
 
 	//interpret the changing fields of the header:
 	PayloadType = header[1] & 127;
-	SequenceNumber = unsigned_int(header[3]) + 256*unsigned_int(header[2]);
-	TimeStamp = unsigned_int(header[7]) + 256*unsigned_int(header[6]) + 65536*unsigned_int(header[5]) + 16777216*unsigned_int(header[4]);
+	SequenceNumber = unsignedInt(header[3]) + 256*unsignedInt(header[2]);
+	TimeStamp = unsignedInt(header[7]) + 256*unsignedInt(header[6]) + 65536*unsignedInt(header[5]) + 16777216*unsignedInt(header[4]);
       }
  }
 
@@ -176,17 +176,28 @@ public class RTPpacket{
   //--------------------------
   //print headers without the SSRC
   //--------------------------
-  public void printheader()
-  {
-    
-    
-    for (int i=0; i < (HEADER_SIZE-4); i++)
-    {
-    	for (int j = 7; j>=0 ; j--)
-    	  if (((1<= 0)
-          return(nb);
+  public void printHeader(){
+
+      for (int i=0; i < (HEADER_SIZE-4); i++)
+      {
+        for (int j = 7; j>=0 ; j--)
+          if (((1<<j) & header[i] ) != 0)
+        System.out.print("1");
         else
-          return(256+nb);
+          System.out.print("0");
+          System.out.print(" ");
+        
+      }
+  
+      System.out.println();
     }
 
+    //return the unsigned value of 8-bit integer nb
+  static int unsignedInt(int nb) {
+    if (nb >= 0)
+        return(nb);
+    return(256+nb);
+  }
+
 }
+

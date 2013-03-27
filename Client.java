@@ -308,7 +308,7 @@ public class Client{
 	System.out.println("Got RTP packet with SeqNum # "+rtp_packet.getsequencenumber()+" TimeStamp "+rtp_packet.gettimestamp()+" ms, of type "+rtp_packet.getpayloadtype());
 	
 	//print header bitstream:
-	rtp_packet.printheader();
+	rtp_packet.printHeader();
 
 	//get the payload bitstream from the RTPpacket object
 	int payload_length = rtp_packet.getpayload_length();
