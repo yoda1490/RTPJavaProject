@@ -218,14 +218,14 @@ public class Server extends JFrame implements ActionListener {
 
 	  //System.out.println("Send frame #"+imagenb);
 	  //print the header bitstream
-	  rtp_packet.printheader();
+	  rtp_packet.printHeader();
 
 	  //update GUI
 	  label.setText("Send frame #" + imagenb);
 	}
 	catch(Exception ex)
 	  {
-	    System.out.println("Exception caught: "+ex);
+	    System.out.println("Exception caught in actionPerformed: "+ex);
 	    System.exit(0);
 	  }
       }
@@ -245,11 +245,12 @@ public class Server extends JFrame implements ActionListener {
     try{
       //parse request line and extract the request_type:
       String RequestLine = RTSPBufferedReader.readLine();
-      //System.out.println("RTSP Server - Received from Client:");
+      System.out.print("RTSP Server - Received from Client: ");
       System.out.println(RequestLine);
 
       StringTokenizer tokens = new StringTokenizer(RequestLine);
       String request_type_string = tokens.nextToken();
+      
 
       //convert to request_type structure:
       if ((new String(request_type_string)).compareTo("SETUP") == 0)
@@ -290,7 +291,7 @@ public class Server extends JFrame implements ActionListener {
     }
     catch(Exception ex)
       {
-	System.out.println("Exception caught: "+ex);
+	System.out.println("Exception caught in parse_RTSP_request: "+ex);
 	System.exit(0);
       }
     return(request_type);
@@ -310,7 +311,7 @@ public class Server extends JFrame implements ActionListener {
     }
     catch(Exception ex)
       {
-	System.out.println("Exception caught: "+ex);
+	System.out.println("Exception caught in send_RTSP_response: "+ex);
 	System.exit(0);
       }
   }

@@ -174,7 +174,7 @@ public class Client{
 	  RTSPSeqNb = 1;
 	 
 	  //Send SETUP message to the server
-	  send_RTSP_request("SETUP");
+	  send_RTSP_request("SETUP "+VideoFileName);
 
 	  //Wait for the response 
 	  if (parse_server_response() != 200)
